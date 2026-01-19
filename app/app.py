@@ -1,26 +1,48 @@
+import sys
+import os
+
+# Add app directory to Python path
+sys.path.append(os.path.dirname(__file__))
+
 import streamlit as st
 from predict import predict
+from PIL import Image
+import tempfile
 
-st.set_page_config(page_title="Crop Pest Detection AI", layout="centered")
 
-st.title("🌱 Crop Pest Detection & Pesticide Recommendation")
-st.write("Upload a tomato leaf image to detect disease and get recommendations.")
-
-st.warning(
-    "⚠️ Disclaimer: This system is for educational purposes only. "
-    "Always consult an agricultural expert before applying chemicals."
+st.set_page_config(
+    page_title="AI-Based Crop Pest Detection",
+    layout="centered"
 )
 
-uploaded_file = st.file_uploader("Upload leaf image", type=["jpg", "png", "jpeg"])
+st.title("🌱 AI-Based Crop Pest Detection & Pesticide Recommendation")
+st.write(
+    "Upload a tomato leaf image to detect the disease and get the recommended pesticide."
+)
 
-if uploaded_file:
-    with open("temp.jpg", "wb") as f:
-        f.write(uploaded_file.read())
+uploaded_file = st.file_uploader(
+    "Upload a leaf image (JPG/PNG)",
+    type=["jpg", "jpeg", "png"]
+)
 
-    result = predict("temp.jpg")
+if uploaded_file is not None:
+    # Show image
+    image = Image.open(uploaded_file)
+    st.image(image, caption="Uploaded Image", use_container_width=True)
 
-    st.subheader("Prediction Result")
-    st.write(f"**Disease:** {result['disease']}")
-    st.write(f"**Confidence:** {result['confidence']}%")
-    st.write(f"**Recommended Chemical:** {result['recommended_chemical']}")
-    st.write(f"**Note:** {result['note']}")
+    # Save image temporarily
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".jpg") as tmp:
+        image.save(tmp.name)
+        temp_path = tmp.name
+
+    if st.button("🔍 Predict"):
+        with st.spinner("Analyzing image..."):
+            result = predict(temp_path)
+
+        st.success("Prediction Complete!")
+
+        st.markdown(f"### 🦠 Disease Detected: **{result['disease']}**")
+        st.markdown(f"**Confidence:** {result['confidence']}%")
+        st.markdown(f"### 🧪 Recommended Chemical")
+        st.info(result["recommended_chemical"])
+        st.markdown(f"**Note:** {result['note']}")
