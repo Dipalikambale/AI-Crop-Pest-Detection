@@ -37,7 +37,8 @@ streamlit==1.53.0
 sympy==1.14.0
 tenacity==9.1.2
 toml==0.10.2
-torch==2.9.1+cpu
+torch==2.9.1
+torchvision==0.20.1
 torchaudio==2.9.1+cpu
 torchvision==0.24.1+cpu
 tornado==6.5.4
@@ -45,3 +46,9 @@ typing_extensions==4.15.0
 tzdata==2025.3
 urllib3==2.6.3
 watchdog==6.0.0
+streamlit
+torch==2.9.1
+torchvision==0.20.1
+Pillow
+numpy
+scikit-learn
