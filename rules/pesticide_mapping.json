@@ -1,0 +1,22 @@
+{
+  "Tomato___Early_blight": {
+    "disease": "Early Blight",
+    "recommended_chemical": "Chlorothalonil or Mancozeb",
+    "note": "Apply during early infection. Avoid overuse."
+  },
+  "Tomato___Late_blight": {
+    "disease": "Late Blight",
+    "recommended_chemical": "Metalaxyl or Copper-based fungicide",
+    "note": "High humidity favors spread. Ensure proper drainage."
+  },
+  "Tomato___Leaf_Mold": {
+    "disease": "Leaf Mold",
+    "recommended_chemical": "Chlorothalonil",
+    "note": "Improve air circulation and reduce leaf wetness."
+  },
+  "Tomato___healthy": {
+    "disease": "Healthy",
+    "recommended_chemical": "No chemical required",
+    "note": "Maintain good agricultural practices."
+  }
+}
